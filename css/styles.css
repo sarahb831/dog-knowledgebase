@@ -1,0 +1,200 @@
+/* colors:
+ teal - #4d95a3
+ dark teal - #004356
+ lavender - #afbddc (175, 189, 200)
+ pink-beige - #327f6e (226, 127, 110)
+ tan - #836D6D
+*/
+
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #836D6D;
+  color: black;
+  font-family: 'Josefin Sans', sans-serif;
+  line-height: 1;
+  margin-left: 40px;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+header {
+  display: flex;
+  width: 100%;
+  position: relative;
+
+  margin-top: 40px;
+  font-weight: 700;
+  font-size: 50px;
+  height: auto;
+}
+
+h1 {
+  font-size: 32px;
+}
+
+.header-logo {
+  width: 300px;
+  height: auto;
+  float: left;
+  margin-bottom: 20px;
+}
+
+.item-list {
+  clear: both;
+  list-style-type: none;
+  margin-top: 20px;
+
+  /* add grid layout */
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 10px;
+}
+
+.item-list__item {
+  margin-top: 20px;
+  text-align: center;
+}
+
+/* grid alternate */
+.grid__item {
+  display: inline-block;
+  width: 33%;
+}
+
+/* using grid */
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 10px;
+}
+
+.grid__item {
+  background-color: var(--white);
+  padding: var(--narrow-margin);
+  width: auto;
+}
+
+/* for smaller displays */
+@media all and (max-width: 500px) {
+  .item-list {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media all and (min-width: 500px) and (max-width: 750px) {
+  .item-list {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media all and (max-width: 750px) {
+  .item-list {
+    grid-gap: 10px;
+  }
+
+  .grid__item:last-child {
+    grid-column: auto/auto;
+    grid-row: auto/auto;
+  }
+}
+
+button {
+  /* overwrite browser defaults and reset border */
+  border: none;
+  display: inline-block;
+  text-align: center;
+  font-family: inherit;
+  background-color: #afbddc;
+  color: black;
+  text-decoration: none;
+  padding: 10px;
+  border-radius: 3px;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.3);
+  transition: 0.8s opacity;
+}
+
+button:hover,
+button:focus,
+a.button:hover,
+a.button:focus {
+  /* mouse turns to hand when hovering */
+  cursor: pointer;
+  background-color: #004356;
+  color: white;
+  /* reduce opacity to 80% */
+  opacity: 0.8;
+}
+
+/* default modal appearance */
+#modal-container {
+  display: none;
+}
+
+#modal-container.is-visible {
+  /* center the modal */
+  display: flex;
+  flex: 1 1 100px;
+  text-align: left;
+  position: fixed;
+  padding: 20px;
+  top: 25%;
+  /*margin-left: 50%; */
+  left: 50px;
+  width: 50%;
+  border-radius: 3px;
+  height: auto;
+  background: rgba(226, 127, 110, 0.8);
+  color: #black;
+
+  /* show it above other content */
+  z-index: 999;
+
+  /* allow scrolling if the screen is not high enough*/
+  overflow: auto;
+}
+
+.modal-close {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  border: 0;
+  background: none;
+  color: black;
+  text-decoration: underline;
+}
+
+.dog-image {
+  /*float: left;
+  margin-left: 10px;
+  width: 50%;
+  */
+  margin-right: 70px;
+}
+
+footer {
+  clear: both;
+  text-align: center;
+}
+
+/* for smaller displays */
+@media all and (max-width: 500px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media all and (min-width: 500px) and (max-width: 750px) {
+  .grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media all and (max-width: 750px) {
+  .grid {
+    grid-gap: 10px;
+  }
+}
