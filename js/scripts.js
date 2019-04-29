@@ -115,7 +115,7 @@
     var closeButtonElement = $('<button class="modal-close">Close</button>')
       .on('click', hideModal);
     var titleElement = $('<h1>'+item.name +'</h1>');
-    var imageElement = $('<img src='+item.imageUrl+' class = "dog-image" alt = "dog-breed-picture" >');
+    var imageElement = $('<img src='+item.imageUrl+' class = "dog-image" alt = "'+ item.name+ ' picture" >');
 
     modal.append(closeButtonElement);
     modal.append(titleElement);
@@ -123,14 +123,11 @@
 
     $modalContainer.append(modal);
     $modalContainer.addClass('is-visible');
-    console.log('in showModal(), final class for $modalContainer is:',$modalContainer.attr('class'));
+
   } // end showModal()
 
   function hideModal() {
-    console.log('in hideModal()');
-
-    $modalContainer.removeClass(); //('class','modal-container');
-    console.log('$modalContainer class:', $modalContainer.attr('class'));
+    $modalContainer.removeClass();
   }
 
   /* show details of items
@@ -153,7 +150,6 @@
     $element.append(newLi);
     button.on('click', function(event) {
       var clickId = $(event.target).text();
-      console.log('event:', event, "event.target.id: ",clickId);
       showDetails(clickId);
     });
   }
@@ -168,14 +164,7 @@
 
   $modalContainer.on('click',(e) => {
     // close if user clicks on overlay
-    console.log('in overlay click listener');
-    console.log('e.target class: ',$(e.target).attr('class'));
-    $modalContainer.attr('class')
-    console.log('$modalContainer class', $modalContainer.attr('class'));
-    //if ($(e.target).attr('class') === 'modal-container'){
-      hideModal();
-  //  }
+    hideModal();
   });
-
 
 })();
