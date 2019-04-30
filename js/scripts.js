@@ -2,6 +2,7 @@
   var data = {};
 
   var $modalContainer = $('#modal-container');
+  var $message = $('#message');
 
   var dogRepository = (function() {
     var repository = [];
@@ -35,8 +36,10 @@
     /* get the list of items from the api
      */
     function loadList() {
+      showLoadingMessage('Loading Dogs list, please wait...');
       return $.ajax(apiUrl, { dataType: 'json' })
         .then(function(data) {
+          hideLoadingMessage();
           var dogs = Object.keys(data.message); // the keys for data I want
           for (var i = 0; i < dogs.length; i++) {
             var dogData = {
@@ -113,7 +116,6 @@
     $modalContainer.text('');
 
     var modal = $('div');
-    //modal.addClass('modal');
 
     // add new modal content
     var closeButtonElement = $('<button class="modal-close">Close</button>').on(
@@ -141,12 +143,23 @@
     $modalContainer.removeClass();
   }
 
+  function showLoadingMessage(message) {
+    $message.text(message);
+    $message.addClass('is-visible');
+  } // end showLoadingMessage()
+
+  function hideLoadingMessage() {
+    $message.removeClass();
+  }
+
   /* show details of items
    */
   function showDetails(itemName) {
+    showLoadingMessage('Loading breed image, please wait...');
     var item = dogRepository.search(itemName); // get object for this itemName
     dogRepository.loadDetails(item).then(function(itemUrl) {
       showModal(item);
+      hideLoadingMessage();
     });
   }
 
