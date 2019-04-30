@@ -1,6 +1,6 @@
+/* eslint-disable no-undef */
 (function() {
-  var data = {};
-
+  
   var $modalContainer = $('#modal-container');
   var $message = $('#message');
 
@@ -51,7 +51,9 @@
           }
         })
         .catch(function(e) {
+          /* eslint-disable no-console */
           console.error(e);
+          /* eslint-enable no-console */
         });
     }
 
@@ -64,7 +66,9 @@
           item.imageUrl = details.message;
         })
         .catch(function(e) {
+          /* eslint-disable no-console */
           console.error(e);
+          /* eslint-enable no-console */
         });
     }
 
@@ -92,7 +96,9 @@
         (isRepositoryEmpty(repository) || isKeyMatch(repository[0], dog))
       ) {
         repository.push(dog);
+        /* eslint-disable no-console */
       } else console.warn('Not valid dog data, item not added!');
+        /* eslint-enable no-console */
     }
 
     // for dogRepository
@@ -157,7 +163,7 @@
   function showDetails(itemName) {
     showLoadingMessage('Loading breed image, please wait...');
     var item = dogRepository.search(itemName); // get object for this itemName
-    dogRepository.loadDetails(item).then(function(itemUrl) {
+    dogRepository.loadDetails(item).then(function() {
       showModal(item);
       hideLoadingMessage();
     });
@@ -185,7 +191,7 @@
     }
   });
 
-  $modalContainer.on('click', e => {
+  $modalContainer.on('click', () => {
     // close if user clicks on overlay
     hideModal();
   });
