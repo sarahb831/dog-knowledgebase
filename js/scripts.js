@@ -1,4 +1,4 @@
-(function () {
+(function() {
   var data = {};
 
   var $modalContainer = $('#modal-container');
@@ -33,37 +33,40 @@
     }
 
     /* get the list of items from the api
-    */
+     */
     function loadList() {
-      return $.ajax(apiUrl, {dataType: 'json'})
-      .then (function (data) {
-        var dogs = Object.keys(data.message); // the keys for data I want
-        for (var i = 0; i < dogs.length; i++){
-          var dogData = {
-            name: dogs[i],
-            detailsUrl: "https://dog.ceo/api/breed/" + dogs[i] +"/images/random"
-          };
-          add(dogData);
-        };
-      }).catch(function(e) {
-        console.error(e);
-      })
+      return $.ajax(apiUrl, { dataType: 'json' })
+        .then(function(data) {
+          var dogs = Object.keys(data.message); // the keys for data I want
+          for (var i = 0; i < dogs.length; i++) {
+            var dogData = {
+              name: dogs[i],
+              detailsUrl:
+                'https://dog.ceo/api/breed/' + dogs[i] + '/images/random'
+            };
+            add(dogData);
+          }
+        })
+        .catch(function(e) {
+          console.error(e);
+        });
     }
 
     /* load the details for the specified item
-    */
+     */
     function loadDetails(item) {
-      var url = "https://dog.ceo/api/breed/" + item.name +"/images/random";
-      return $.ajax(url, {dataType: 'json'})
-      .then(function (details) {
-        item.imageUrl = details.message;
-      }).catch(function(e) {
-        console.error(e);
-      });
+      var url = 'https://dog.ceo/api/breed/' + item.name + '/images/random';
+      return $.ajax(url, { dataType: 'json' })
+        .then(function(details) {
+          item.imageUrl = details.message;
+        })
+        .catch(function(e) {
+          console.error(e);
+        });
     }
 
     /* returns the object from the repository for the given name
-    */
+     */
 
     function search(name) {
       for (var i = 0; i < repository.length; i++) {
@@ -79,13 +82,14 @@
     }
 
     /* add item to repository
-    */
+     */
     function add(dog) {
-      if ((typeof dog === 'object') && ((isRepositoryEmpty(repository) ||
-          (isKeyMatch(repository[0],dog))))) {
+      if (
+        typeof dog === 'object' &&
+        (isRepositoryEmpty(repository) || isKeyMatch(repository[0], dog))
+      ) {
         repository.push(dog);
-      }
-      else console.warn("Not valid dog data, item not added!");
+      } else console.warn('Not valid dog data, item not added!');
     }
 
     // for dogRepository
@@ -106,16 +110,24 @@
   });
 
   function showModal(item) {
-    $modalContainer.text("");
+    $modalContainer.text('');
 
     var modal = $('div');
     //modal.addClass('modal');
 
     // add new modal content
-    var closeButtonElement = $('<button class="modal-close">Close</button>')
-      .on('click', hideModal);
-    var titleElement = $('<h1>'+item.name +'</h1>');
-    var imageElement = $('<img src='+item.imageUrl+' class = "dog-image" alt = "'+ item.name+ ' picture" >');
+    var closeButtonElement = $('<button class="modal-close">Close</button>').on(
+      'click',
+      hideModal
+    );
+    var titleElement = $('<h1>' + item.name + '</h1>');
+    var imageElement = $(
+      '<img src=' +
+        item.imageUrl +
+        ' class = "dog-image" alt = "' +
+        item.name +
+        ' picture" >'
+    );
 
     modal.append(closeButtonElement);
     modal.append(titleElement);
@@ -123,7 +135,6 @@
 
     $modalContainer.append(modal);
     $modalContainer.addClass('is-visible');
-
   } // end showModal()
 
   function hideModal() {
@@ -131,7 +142,7 @@
   }
 
   /* show details of items
-  */
+   */
   function showDetails(itemName) {
     var item = dogRepository.search(itemName); // get object for this itemName
     dogRepository.loadDetails(item).then(function(itemUrl) {
@@ -140,12 +151,12 @@
   }
 
   /* adds item to display as a button
-  */
+   */
   function addListItem(dog) {
     // add new DOM li imageElement
     var $element = $('.item-list');
-    var newLi = $('<li id='+ dog.name +' class="item-list__item"></li>');
-    var button = $('<button>'+dog.name +'</button>');
+    var newLi = $('<li id=' + dog.name + ' class="item-list__item"></li>');
+    var button = $('<button>' + dog.name + '</button>');
     newLi.append(button);
     $element.append(newLi);
     button.on('click', function(event) {
@@ -155,16 +166,14 @@
   }
 
   // exit modal gracefully on escape key press
-  window.addEventListener('keydown',(e) => {
-    if ((e.key === 'Escape') &&
-      ($modalContainer.attr('class') === 'is-visible')) {
-        hideModal();
-      }
+  window.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && $modalContainer.attr('class') === 'is-visible') {
+      hideModal();
+    }
   });
 
-  $modalContainer.on('click',(e) => {
+  $modalContainer.on('click', e => {
     // close if user clicks on overlay
     hideModal();
   });
-
 })();
